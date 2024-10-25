@@ -8,3 +8,4 @@ export * from './parseRequestMetadataKey';
 export * from './parseObjectMetadataKey';
 export * from './authGuardMetadataKey';
 export * from './masterGuardMetadataKey';
+export * from './handlers';
