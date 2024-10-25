@@ -1,8 +1,9 @@
 import "reflect-metadata";
 import { container } from "tsyringe";
-import { SkipIfMaster, Triggers, authGuardMetadataKey, ParamType, parseRequestParamsMetadataKey, masterGuardMetadataKey, parseCloudJobMetadataKey,
-    functionsMetadataKey, parseCurrentUserMetadataKey, parseObjectMetadataKey, parseRequestMetadataKey, triggersMetadataKey } from "./decorators";
-import { validationMetadataKey } from "./symbols/validationMetadataKey";
+import { SkipIfMaster, Triggers, ParamType } from "./decorators";
+import { validationMetadataKey, parseCurrentUserMetadataKey, parseRequestParamsMetadataKey, 
+    parseRequestMetadataKey, parseObjectMetadataKey, authGuardMetadataKey, masterGuardMetadataKey,
+    functionsMetadataKey, parseCloudJobMetadataKey, triggersMetadataKey } from "./symbols";
 import { validate } from 'class-validator';
 
 type UnknownClass = {new(...args: unknown[]): unknown};

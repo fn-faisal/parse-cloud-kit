@@ -1,5 +1,5 @@
 import { UserConstructor } from "parse";
-import { validationMetadataKey } from "../symbols/validationMetadataKey";
+import { triggersMetadataKey, validationMetadataKey } from "../symbols";
 
 export type Triggers = 'afterDelete' | 'afterDeleteFile' | 'afterFind' | 'afterLogin' |
     'afterLogout' | 'afterSave' | 'afterSaveFile' |
@@ -11,8 +11,6 @@ type TriggerParams = {
     className: string | UserConstructor;
     validation?: Parse.Cloud.Validator;
 }
-
-export const triggersMetadataKey = Symbol('triggers');
 
 export const ParseTrigger = <T>(params: TriggerParams) => (
     target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<T>

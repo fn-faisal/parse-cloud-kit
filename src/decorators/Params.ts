@@ -1,6 +1,4 @@
-
-
-export const parseRequestParamsMetadataKey = Symbol('parse-request-params')
+import { parseRequestParamsMetadataKey } from "../symbols/parseRequestParamsMetadataKey";
 
 export type ParamType = {
     propertyIndex: number,

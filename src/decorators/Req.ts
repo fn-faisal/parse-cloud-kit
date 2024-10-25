@@ -1,5 +1,4 @@
-
-export const parseRequestMetadataKey = Symbol('parse-request')
+import { parseRequestMetadataKey } from "../symbols";
 
 export function Req() {
     return function (target: any, propertyKey: string, propertyIndex: number) {

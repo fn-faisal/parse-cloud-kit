@@ -1,6 +1,5 @@
+import { parseObjectMetadataKey } from "../symbols";
 
-
-export const parseObjectMetadataKey = Symbol('parse-request-object')
 
 export type RequestObjectType = {
     propertyIndex: number,

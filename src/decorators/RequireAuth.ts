@@ -1,5 +1,4 @@
-
-export const authGuardMetadataKey = Symbol('auth-guard');
+import { authGuardMetadataKey } from "../symbols";
 
 type RequireAuthParams = {
     

@@ -1,6 +1,4 @@
-import { validationMetadataKey } from "../symbols/validationMetadataKey";
-
-export const functionsMetadataKey = Symbol('functions');
+import { validationMetadataKey, functionsMetadataKey } from "../symbols";
 
 type FunctionParams = {
     validation?: Parse.Cloud.Validator

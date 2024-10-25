@@ -1,5 +1,4 @@
-
-export const masterGuardMetadataKey = Symbol('master-guard');
+import { masterGuardMetadataKey } from "../symbols";
 
 type RequireMasterParams = {
     

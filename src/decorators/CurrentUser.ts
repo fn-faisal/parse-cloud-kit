@@ -1,6 +1,4 @@
-
-
-export const parseCurrentUserMetadataKey = Symbol('parse-request-user')
+import { parseCurrentUserMetadataKey } from "../symbols/parseCurrentUserMetadataKey";
 
 export type CurrentUserType = {
     propertyIndex: number,

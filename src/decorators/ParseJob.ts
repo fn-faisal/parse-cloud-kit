@@ -1,6 +1,4 @@
-import { validationMetadataKey } from "../symbols/validationMetadataKey";
-
-export const parseCloudJobMetadataKey = Symbol('parseCloudJobMetadataKey');
+import { parseCloudJobMetadataKey } from "../symbols";
 
 type JobParams = {
     validation?: Parse.Cloud.Validator
