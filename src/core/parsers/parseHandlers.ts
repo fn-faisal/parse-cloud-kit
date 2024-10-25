@@ -1,10 +1,10 @@
 import { validate } from "class-validator";
-import { ParamType, SkipIfMaster, Triggers } from "../decorators";
-import { authGuardMetadataKey, functionsMetadataKey, masterGuardMetadataKey, parseCloudJobMetadataKey, parseCurrentUserMetadataKey, parseObjectMetadataKey, parseRequestMetadataKey, parseRequestParamsMetadataKey, triggersMetadataKey, validationMetadataKey } from "../symbols";
-import { FunctionItem, JobItem, TriggerItem, UnknownClass } from "../types";
+import { ParamType, SkipIfMaster, Triggers } from "../../decorators";
+import { authGuardMetadataKey, functionsMetadataKey, masterGuardMetadataKey, parseCloudJobMetadataKey, parseCurrentUserMetadataKey, parseObjectMetadataKey, parseRequestMetadataKey, parseRequestParamsMetadataKey, triggersMetadataKey, validationMetadataKey } from "../../symbols";
+import { FunctionItem, JobItem, TriggerItem, UnknownClass } from "../../types";
 import { container } from "tsyringe";
-import { getValidations } from "./getValidations";
-import { getCallback } from "./getCallback";
+import { getValidations } from "../utils/getValidations";
+import { getCallback } from "../utils/getCallback";
 
 export function parseHandler(handler: UnknownClass): [ FunctionItem[], TriggerItem[], JobItem[] ] {
     const triggersToRegister: TriggerItem[] = [];

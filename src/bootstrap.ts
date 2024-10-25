@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { FunctionItem, TriggerItem, UnknownClass } from "./types";
-import { parseHandler } from "./core/parseHandlers";
+import { parseHandler } from "./core/parsers/parseHandlers";
 
 export default async function bootstrapCloudCode(modules: UnknownClass[]) {
     const jobs: FunctionItem[] = [];

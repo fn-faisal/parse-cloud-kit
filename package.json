@@ -2,7 +2,7 @@
   "name": "parse-cloud-kit",
   "version": "0.0.1",
   "description": "Parse Server Cloud Code Kit",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
