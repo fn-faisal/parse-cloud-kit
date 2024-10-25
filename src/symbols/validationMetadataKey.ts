@@ -1,0 +1,1 @@
+export const validationMetadataKey = Symbol('parse-validation');
