@@ -1,9 +1,9 @@
 import "reflect-metadata";
-import { FunctionItem, TriggerItem, UnknownClass } from "./types";
+import { FunctionItem, JobItem, TriggerItem, UnknownClass } from "./types";
 import { parseModule } from "./core/parsers/parseModule";
 
 export default async function bootstrapCloudCode(modules: UnknownClass[]) {
-    const jobs: FunctionItem[] = [];
+    const jobs: JobItem[] = [];
     const functions: FunctionItem[] = [];
     const triggers: TriggerItem[] = [];
 
@@ -11,7 +11,6 @@ export default async function bootstrapCloudCode(modules: UnknownClass[]) {
 
     // register jobs.
     jobs.map( j => {
-        // @ts-expect-error callback error
         Parse.Cloud.job(j.propertyKey, j.callback);
     });
 
