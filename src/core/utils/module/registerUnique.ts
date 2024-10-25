@@ -1,6 +1,5 @@
 
 export const registerUnique = <T>( registry: T[], itemsToRegister: T[], findUsing: ( i: T, j: T ) => boolean, errorMessage?: (foundItem: T) => string ) => {
-    // register jobs.
     const foundItem = registry.find(f => 
         itemsToRegister
             .find(ftr => findUsing(f, ftr)) !== undefined
@@ -15,5 +14,18 @@ export const registerUnique = <T>( registry: T[], itemsToRegister: T[], findUsin
     }
 
     // register functions.
-    itemsToRegister.map( f => registry.push(f) );
+    itemsToRegister.map( f => {
+        const foundItem = registry
+                .find(ftr => findUsing(f, ftr));
+        
+    
+        if ( foundItem ) {
+            let errMessage: string = 'Trying to register multiple parse entity with same name/class name etc.';
+            if ( errorMessage && typeof errorMessage === 'function' ) {
+                errMessage = errorMessage(foundItem)
+            }
+            throw new Error(errMessage);
+        }
+        registry.push(f)
+    } );
 }

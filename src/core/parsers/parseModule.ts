@@ -1,8 +1,8 @@
+import { isNotSingleTrigger } from "../../decorators";
 import { handlersMetadataKey } from "../../symbols";
 import { FunctionItem, JobItem, TriggerItem, UnknownClass } from "../../types";
 import { registerUnique } from "../utils/module/registerUnique";
 import { parseHandler } from "./parseHandler";
-
 
 export function parseModule (
     module: UnknownClass, 
@@ -26,10 +26,13 @@ export function parseModule (
             j => `Trying to register multiple functions with same name. ${j.propertyKey}`
         );
 
-        // register functions.
+        // register triggers.
         registerUnique<TriggerItem>(triggers, triggersToRegister,
-            (ftr, f) => f.className === ftr.className && f.type === ftr.type,
-            t => `Trying to register multiple triggers for same class. ${t.className}`
+            (ftr, f) => 
+                isNotSingleTrigger(f) && isNotSingleTrigger(ftr) ?
+                f.className === ftr.className && f.type === ftr.type :
+                f.type === ftr.type,
+            t => `Trying to register multiple triggers for same class/trigger. ${isNotSingleTrigger(t) ? t.className : t.type}`
         );
     });
 }
