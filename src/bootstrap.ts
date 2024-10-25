@@ -5,36 +5,7 @@ import { validationMetadataKey, parseCurrentUserMetadataKey, parseRequestParamsM
     parseRequestMetadataKey, parseObjectMetadataKey, authGuardMetadataKey, masterGuardMetadataKey,
     functionsMetadataKey, parseCloudJobMetadataKey, triggersMetadataKey } from "./symbols";
 import { validate } from 'class-validator';
-
-type UnknownClass = {new(...args: unknown[]): unknown};
-
-type TriggerItem = {
-    type: string;
-    className: string; 
-    callback: (...args: unknown[]) => unknown;
-    validation: any
-}
-
-type FunctionItem = {
-    propertyKey: string; 
-    callback: (...args: unknown[]) => unknown;
-    validation: any;
-}
-
-type JobItem = {
-    propertyKey: string; 
-    callback: (...args: unknown[]) => void | Promise<void>;
-    validation: any;
-}
-
-
-export type ParseObjectPolicies = {
-    [key: string]: {
-        read?: (user?: Parse.User, object?: Parse.Object) => boolean | Promise<boolean>;
-        write?: (user?: Parse.User, object?: Parse.Object) => boolean | Promise<boolean>;
-        delete?: (user?: Parse.User, object?: Parse.Object) => boolean | Promise<boolean>;
-    }
-}
+import { FunctionItem, JobItem, ParseObjectPolicies, TriggerItem, UnknownClass } from "./types";
 
 function parseHandler(handler: UnknownClass): [ FunctionItem[], TriggerItem[], JobItem[] ] {
     const triggersToRegister: TriggerItem[] = [];
