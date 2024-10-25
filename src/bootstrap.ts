@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import { FunctionItem, JobItem, TriggerItem, UnknownClass } from "./types";
 import { parseModule } from "./core/parsers/parseModule";
+import { isNotSingleTrigger } from "./decorators";
 
 export default async function bootstrapCloudCode(modules: UnknownClass[]) {
     const jobs: JobItem[] = [];
@@ -24,7 +25,16 @@ export default async function bootstrapCloudCode(modules: UnknownClass[]) {
         const callback = async (...args: unknown[]) => {
             await t.callback(...args);
         }
-    
-        Parse.Cloud[t.type](t.className, callback, t.validation);
+        if ( isNotSingleTrigger(t) ) {
+            Parse.Cloud[t.type](t.className, callback, t.validation);
+        } else {
+            if ( t.type === 'beforeLogin' || t.type === 'afterLogout') {
+                Parse.Cloud[t.type](callback);
+            } else {
+                // @ts-expect-error expected call
+                Parse.Cloud[t.type](callback, t.validation);
+            }
+
+        }
     });
 }

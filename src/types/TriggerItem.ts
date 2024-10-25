@@ -1,6 +1,6 @@
-export type TriggerItem = {
-    type: string;
-    className: string; 
-    callback: (...args: unknown[]) => unknown;
-    validation: any
-}
+import { TriggerParams } from "../decorators";
+
+export type TriggerItem = 
+    TriggerParams & {
+        callback: (...args: unknown[]) => unknown;
+    } 

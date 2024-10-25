@@ -1,15 +1,25 @@
 import { UserConstructor } from "parse";
 import { triggersMetadataKey, validationMetadataKey } from "../symbols";
 
-export type Triggers = 'afterDelete' | 'afterDeleteFile' | 'afterFind' | 'afterLogin' |
-    'afterLogout' | 'afterSave' | 'afterSaveFile' |
-    'beforeDelete' | 'beforeDeleteFile' | 'beforeFind' | 'beforeLogin' |
-    'beforeSave' | 'beforeSaveFile';
+export type TriggerType = 'afterDelete' | 'afterFind' |
+     'afterSave' | 'beforeDelete' | 'beforeFind' | 'beforeSave';
 
-type TriggerParams = {
-    type: Triggers;
-    className: string | UserConstructor;
-    validation?: Parse.Cloud.Validator;
+export type SingleTriggerType = 'afterDeleteFile' | 'afterSaveFile' | 
+    'beforeDeleteFile' | 'beforeSaveFile' | 'beforeLogin' | 'afterLogout';
+
+export type TriggerParams = 
+  | {
+      type: SingleTriggerType;
+      validation?: Parse.Cloud.Validator;
+    }
+  | {
+      type: TriggerType; 
+      className: string | UserConstructor; 
+      validation?: Parse.Cloud.Validator;
+    };
+
+export function isNotSingleTrigger(params: TriggerParams): params is { type: TriggerType; className: string | UserConstructor } {
+    return 'className' in params;
 }
 
 export const ParseTrigger = <T>(params: TriggerParams) => (
@@ -17,16 +27,18 @@ export const ParseTrigger = <T>(params: TriggerParams) => (
 ) => {
     // existing function.
     const functions = Reflect.getMetadata(triggersMetadataKey, target) || [];
-    functions.push({
+    const functionData: any = {
         propertyKey,
         type: params.type,
-        className: params.className,
-    });
+    };
+    if (isNotSingleTrigger(params)) {
+        functionData.className = params.className;
+    }
+    functions.push(functionData);
+
     Reflect.defineMetadata(triggersMetadataKey, functions, target);
 
-    if ( params ) {
-        if (params.validation) {
-            Reflect.defineMetadata(validationMetadataKey, params.validation, target[propertyKey]);
-        }
+    if ( params && params.validation ) {
+        Reflect.defineMetadata(validationMetadataKey, params.validation, target[propertyKey]);
     }
 }
