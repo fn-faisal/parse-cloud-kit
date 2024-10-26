@@ -14,7 +14,7 @@
   ],
   "author": "Muhammad Faisal Nadeem",
   "license": "ISC",
-  "dependencies": {
+  "peerDependencies": {
     "class-validator": "^0.14.1",
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.8.0"
